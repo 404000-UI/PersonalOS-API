@@ -1,0 +1,142 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /user/signup:
+    post:
+      tags:
+      - user-controller
+      operationId: signup
+      parameters:
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: age
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: latitude
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: longitude
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: schoolNm
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: lctnNm
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: pw
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserEntity"
+  /user/leave:
+    post:
+      tags:
+      - user-controller
+      operationId: leave
+      parameters:
+      - name: hash
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserEntity"
+  /user/signinWithHash:
+    get:
+      tags:
+      - user-controller
+      operationId: signinWithHash
+      parameters:
+      - name: hash
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserEntity"
+  /info:
+    get:
+      tags:
+      - main-controller
+      operationId: getInfo
+      parameters:
+      - name: hash
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+components:
+  schemas:
+    UserEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        age:
+          type: integer
+          format: int32
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+        schoolNm:
+          type: string
+        lctn:
+          type: string
+        password:
+          type: string
+        hash:
+          type: string
